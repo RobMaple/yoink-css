@@ -40,7 +40,7 @@ Additionally, Yoink will scope any class selector that starts with a particular 
      /*...Your CSS here...*/
 }
 
-// Becomes...
+/* Becomes...*/
 
 .134567_your_class {
      /*...Your CSS here...*/
