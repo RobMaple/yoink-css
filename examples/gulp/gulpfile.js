@@ -10,7 +10,7 @@ function extractCss() {
     return gulp
         .src(["./templates/**/*"])
         .pipe(yoink({
-            css_dest: './scss/style.scss',
+            css_dest: './dist/scss/style.scss',
             prefix : '--'
         }))
         .pipe(gulp.dest("./dist/templates/"));
