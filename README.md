@@ -5,9 +5,9 @@ Yoink allows you to take a CSS-in-JS approach to writing CSS inside template fil
 
 ## Features
 
-- Colocate CSS code with the template markup it corresponds to.
+- Co-locate CSS code with the template markup it corresponds to.
 - Scope classes to the markup in that file.
-- Write SCSS, LESS or any other CSS variant.
+- Write SCSS, LESS or any other CSS preprocessor syntax.
 - Extracts CSS to a single file that can then be used as part of your usual build process.
 - Can be used with both Gulp and NPM scripts / CLI.
 
@@ -29,7 +29,7 @@ Yoink removes any internal CSS from templates that have the attribute 'extract'.
 
 ```css
 <style extract>
-    //...Your CSS here...
+    /*...Your CSS here...*/
 </style>
 ```
 
@@ -37,35 +37,57 @@ Additionally, Yoink will scope any class selector that starts with a particular 
 
 ```css 
 .--your_class {
-     //...Your CSS here...
+     /*...Your CSS here...*/
 }
 
 // Becomes...
 
 .134567_your_class {
-     //...Your CSS here...
+     /*...Your CSS here...*/
 }
+```
+
+Regular class names and scoped class names can be mix and matched.
+
+```css 
+.normal_class .--scoped_class  {
+     /*...Your CSS here...*/
+}
+
 ```
 
 ## Configuration
 
 If you're using Gulp, Yoink accepts a configuration object with these keys:
 
-**css_dest** - *Required* The complete destination path of the merged CSS file (including file name).
-**Prefix** - *Defualt: '--'* The class selector prefix that will be replaced to scope a class to it's file.
+`css_dest` - *Required* The complete destination path of the merged CSS file (including file name).
+
+`Prefix` - *Defualt: '--'* The class selector prefix that will be replaced to scope a class to it's file.
+
+---
 
 Using NPM scripts / CLI, an additional 2 args are required:
 
-**src** - *Required* The src template folder that gets watched 
-**dest** - *Required*  The destination folder where the processed templates should go. 
+`src` - *Required* The src template folder that gets watched
 
-**NOTE: Currently Yoink requires that both the src and dest folders are NOT your root directory**
+`dest` - *Required*  The destination folder where the processed templates should go. 
 
-These args can be passed to Yoink CLI version either using these flags: 
-**--src**, 
-**--dest**
-**--css_dest**
-**--prefix**
+
+**NOTE:** *Currently Yoink requires that both the src and dest folders are NOT your root directory*
+
+---
+
+These args can be passed to Yoink CLI version either using these flags:
+
+`--src`
+
+`--dest`
+
+`--css_dest`
+
+`--prefix`
+
+---
 
 Or alternatively, Yoink will look for a configuration file in your working directory called 'yoink.config.js' that should contain a config object like this:
 
