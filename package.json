@@ -1,0 +1,22 @@
+{
+  "name": "yoink-css",
+  "version": "0.1.0",
+  "description": "Extract and scope CSS in template files",
+  "author": "Robert Maple",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "chokidar": "^2.0.4",
+    "escape-string-regexp": "^1.0.5",
+    "fs-extra": "^7.0.0",
+    "lodash": "^4.17.11",
+    "lodash.debounce": "^4.0.8",
+    "mkdirp": "^0.5.1",
+    "plugin-error": "^1.0.1",
+    "recursive-readdir": "^2.2.2",
+    "through2": "^3.0.0"
+  },
+  "bin": {
+    "yoink": "./cli.js"
+  }
+}

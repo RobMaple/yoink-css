@@ -1,0 +1,8 @@
+{
+    "scripts": {
+      "start": "yoink"
+    },
+    "dependencies": {
+      "yoink-css": "*"
+    }
+  }

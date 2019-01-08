@@ -1,0 +1,32 @@
+<style extract>
+    .--wrapper {
+        padding:20px;
+        width:800px;
+        margin:0 auto;
+    }
+    .--title {
+        border-bottom:2px solid black;
+    }
+    .normalClass {
+        background-color: red;
+    }
+</style>
+
+<!-- the styles below will not be extracted as it doesnt have the 'extract' attribute -->
+
+<style>
+    .footer {
+         padding: 50px;
+    }
+</style>
+
+
+<!-- Regular template content -->
+
+<div class="--wrapper">
+    <div class="--title normalClass">
+        <h1>Example Component A</h1>
+    </div>
+</div>
+
+<div class="footer"></div>
