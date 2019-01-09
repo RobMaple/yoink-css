@@ -35,22 +35,26 @@ params.css_dest = args.css_dest || config.css_dest || writeError(Error("CSS Dest
 // The class prefix that will be replaced with a uuid
 params.prefix = escapeRegex(args.prefix || config.prefix || "--"); 
 
-/* Set chokidar to watch the src directory */
-const watcher = chokidar.watch(params.src, { ignoreInitial: true });
+if(args.watch || config.watch){
+    /* Set chokidar to watch the src directory */
+    const watcher = chokidar.watch(params.src, { ignoreInitial: true });
 
-watcher
-    .on("add", processFile)
-    .on("change", processFile)
-    .on("ready", debounce(processAll, 300))
-    .on("unlink", removeFromCache)
-    .on("unlinkDir", removeFromCache)
-    .on(
-        "error",
-        function() {
-            writeError(Error("Yoink: An error occurred."));
-        },
-        300
-    );
+    watcher
+        .on("add", processFile)
+        .on("change", processFile)
+        .on("ready", debounce(processAll, 300))
+        .on("unlink", removeFromCache)
+        .on("unlinkDir", removeFromCache)
+        .on(
+            "error",
+            function() {
+                writeError(Error("Yoink: An error occurred."));
+            },
+            300
+        );
+} else {
+    processAll();
+}
 
 /**
  * Check if a file is processable then extract css, remove styles from template then merge styles to a single file

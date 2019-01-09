@@ -1,7 +1,7 @@
 
 
 # Yoink
-Yoink allows you to take a CSS-in-JS approach to writing CSS inside template files of other languages and non-js specific projects. 
+Yoink allows you to take a CSS-in-JS-like approach to writing CSS inside template files of other languages and non-js specific projects. 
 
 ## Features
 
@@ -13,9 +13,13 @@ Yoink allows you to take a CSS-in-JS approach to writing CSS inside template fil
 
 ## Caveats
 
-- This project is currently a work in progress and whilst currently used in production projects, it has only been tested in a limited amount of template languages / project setups.
-- Writing CSS in template files is not going to be ideal for all projects and is defiantly more suited to codebases where template are made up of small partials, much in the same way React or Vue projects are.
+- This project is currently a work in progress and whilst currently used in production projects, it has only been tested with a limited amount of template languages / project setups.
+- Unlike most CSS-in-JS approaches, there is no interoperability between the CSS and markup, meaning that, for instance, conditional output of styles is not possible.
+- Writing CSS in template files is not going to be ideal for all projects and is defiantly more suited to codebases where templates are made up of small partials, much in the same way React or Vue projects are.
 - It may take a bit of configuration in your text editor to provide proper syntax highlighting when writing CSS in template files.
+
+## Motivation
+Having enjoyed the dev experience of styling React components and working with CSS-in-JS, this is started an attempt to port/emulate some of that experience across to PHP projects that were using Twig.
 
 ## Installation
 
@@ -53,7 +57,6 @@ Regular class names and scoped class names can be mix and matched.
 .normal_class .--scoped_class  {
      /*...Your CSS here...*/
 }
-
 ```
 
 ## Configuration
@@ -66,11 +69,13 @@ If you're using Gulp, Yoink accepts a configuration object with these keys:
 
 ---
 
-Using NPM scripts / CLI, an additional 2 args are required:
+Using NPM scripts / CLI, an additional 3 args are required:
 
-`src` - *Required* The src template folder that gets watched
+`src` - *Required* The src template folder that gets processed.
 
 `dest` - *Required*  The destination folder where the processed templates should go. 
+
+`watch` - *Default: false* Whether to continuously watch the src folder for changes.
 
 
 **NOTE:** *Currently Yoink requires that both the src and dest folders are NOT your root directory*
@@ -85,6 +90,8 @@ These args can be passed to Yoink CLI version either using these flags:
 
 `--css_dest`
 
+`--watch`
+
 `--prefix`
 
 ---
@@ -96,7 +103,8 @@ module.exports = {
     src : './templates/',
     dest: './dist/',
     css_dest: './scss/styles.scss',
-    prefix : '--'
+    prefix : '--',
+    watch : true
 }
 ```
 
@@ -121,9 +129,9 @@ Using NPM scripts...
 ```javascript
 // ...
 "scripts": {
-      "start": "yoink --src ./src/templates --dest ./dist/"
+      "start": "yoink --src ./src/templates --dest ./dist/ --css_dest ./dest/css --watch"
 },
 // ...
 ```
 
-The examples folder contains a simple working example of both Gulp / NPM srcips usage.
+The examples folder contains a simple working example of both Gulp / NPM scripts usage - run `npm install` from in each folder to grab the necessary dependencies then either `gulp` or `npm start` depending on example.
