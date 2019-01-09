@@ -1,6 +1,6 @@
 {
   "name": "yoink-css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Extract and scope CSS in template files",
   "author": "Robert Maple",
   "license": "MIT",
