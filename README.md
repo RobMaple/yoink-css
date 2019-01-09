@@ -15,7 +15,7 @@ Yoink allows you to take a CSS-in-JS-like approach to writing CSS inside templat
 
 - This project is currently a work in progress and whilst currently used in production projects, it has only been tested with a limited amount of template languages / project setups.
 - Unlike most CSS-in-JS approaches, there is no interoperability between the CSS and markup, meaning that, for instance, conditional output of styles is not possible.
-- Writing CSS in template files is not going to be ideal for all projects and is defiantly more suited to codebases where templates are made up of small partials, much in the same way React or Vue projects are.
+- Writing CSS in template files is not going to be ideal for all projects and is definitely more suited to codebases where templates are made up of small partials, much in the same way React or Vue projects are.
 - It may take a bit of configuration in your text editor to provide proper syntax highlighting when writing CSS in template files.
 
 ## Motivation
@@ -65,7 +65,7 @@ If you're using Gulp, Yoink accepts a configuration object with these keys:
 
 `css_dest` - *Required* The complete destination path of the merged CSS file (including file name).
 
-`Prefix` - *Defualt: '--'* The class selector prefix that will be replaced to scope a class to it's file.
+`Prefix` - *Default: '--'* The class selector prefix that will be replaced to scope a class to it's file.
 
 ---
 
