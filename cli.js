@@ -8,6 +8,7 @@ const recursive = require("recursive-readdir");
 const debounce = require("lodash").debounce;
 const parseArgs = require("minimist");
 const chalk = require("chalk");
+const p = require("path");
 const extractCss = require("./src/extractCss");
 const cleanTemplate = require("./src/cleanTemplate");
 const mergeStyles = require("./src/mergeStyles");
@@ -25,9 +26,11 @@ let params = {};
 
 // The src folder to watch for changes
 params.src = args.src || config.src || writeError(Error("Source not set")); 
+params.src = params.src.substr(-1) != p.sep ? params.src += p.sep : params.src;
 
 // The output folder for 'cleaned' templates
 params.dest = args.dest || config.dest || writeError(Error("Destination not set")); 
+params.dest = params.dest.substr(-1) != p.sep ? params.dest += p.sep : params.dest;
 
 // The destination folder for the merged CSS
 params.css_dest = args.css_dest || config.css_dest || writeError(Error("CSS Destination not set")); 
@@ -43,8 +46,8 @@ if(args.watch || config.watch){
         .on("add", processFile)
         .on("change", processFile)
         .on("ready", debounce(processAll, 300))
-        .on("unlink", removeFromCache)
-        .on("unlinkDir", removeFromCache)
+        .on("unlink", handleRemove)
+        .on("unlinkDir", handleRemove)
         .on(
             "error",
             function() {
@@ -85,11 +88,21 @@ function processFile(path) {
  * @param {string} str Path
  */
 function writeTemplateFile(content, path) {
-    writeFile(params.dest + path, content, function(err) {
+    writeFile(params.dest + removeSrcFromPath(params.src, path), content, function(err) {
         if (err) {
             writeError(err);
         }
     });
+}
+
+/**
+ * Handles the removeal of files / folders
+ * @param {string} str Path
+ */
+
+function handleRemove(path) {
+    removeFromCache(path);
+    removeFromDist(path);
 }
 
 /**
@@ -98,20 +111,40 @@ function writeTemplateFile(content, path) {
  */
 
 function removeFromCache(path) {
-    console.log(path);
     try {
         if (fs.existsSync("yoink-cache/" + path)) {
             fs.remove("yoink-cache/" + path, function() {
                 mergeStyles(params.css_dest);
             });
         }
-        if (fs.existsSync(params.dest + path)) {
-            fs.remove(params.dest + path);
-            countProcessed("removed:");
-        }
     } catch {
         writeError(Error("Cache error"));
     }
+}
+
+/**
+ * Removes a folder from the dist folder if deleted from the src folder
+ * @param {string} str Path
+ */
+
+function removeFromDist(path) {
+    try {
+        if (fs.existsSync(params.dest + removeSrcFromPath(params.src, path))) {
+            fs.remove(params.dest + removeSrcFromPath(params.src, path));
+            countProcessed("removed:");
+        }
+    } catch {
+        writeError(Error("Remove error"));
+    }
+}
+
+/**
+ * Removes the src directory from the output path
+ * @param {string} str Path
+ */
+function removeSrcFromPath(src, path) {
+    src = p.normalize(src);
+    return path.replace(src, '');
 }
 
 /**

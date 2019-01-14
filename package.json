@@ -1,8 +1,12 @@
 {
   "name": "yoink-css",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Extract and scope CSS in template files",
   "author": "Robert Maple",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/RobMaple/yoink-css.git"
+  },
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.2",
