@@ -1,7 +1,6 @@
-
 const createUuid = require("./createUuid");
 const writeFile = require("./writeFile");
-const mergeStyles = require('./mergeStyles');
+const mergeStyles = require("./mergeStyles");
 
 /**
  * Extract css from template files & replace prefixed class names with a uuid
@@ -22,7 +21,7 @@ function extractCss(content, path, params) {
             // Process children if we have them.
             const uuid = el.match(/<style.*?prefix="([^"]*)/)
                 ? el.match(/<style.*?prefix="([^"]*)/)[1]
-                : createUuid(path);
+                : createUuid(path, params.readable);
 
             el = el.replace(/<\/?style[\S\s]*?>/g, "");
 
@@ -42,9 +41,7 @@ function extractCss(content, path, params) {
             }
         });
 
-        writeCssToCache(content, path).then(() =>
-            mergeStyles(params.css_dest)
-        );
+        writeCssToCache(content, path).then(() => mergeStyles(params.css_dest));
     }
 }
 
@@ -53,7 +50,6 @@ function extractCss(content, path, params) {
  * @param {string} str Content
  * @param {string} str Path
  */
-
 
 function writeCssToCache(content, path) {
     return new Promise((resolve, reject) => {

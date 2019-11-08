@@ -22,7 +22,7 @@ module.exports = function(content, path, params) {
 
             const uuid = el.match(/<style.*?prefix="([^"]*)/)
                 ? el.match(/<style.*?prefix="([^"]*)/)[1]
-                : createUuid(path);
+                : createUuid(path, params.readable);
 
             content = content.replace(
                 /<style[\' '\S]*?extract[\s\S]*?>([\s\S]*?)<\/style>/g,

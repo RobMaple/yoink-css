@@ -38,6 +38,9 @@ params.css_dest = args.css_dest || config.css_dest || writeError(Error("CSS Dest
 // The class prefix that will be replaced with a uuid
 params.prefix = escapeRegex(args.prefix || config.prefix || "--"); 
 
+// Create readable class names (uses file path instead of hash)
+params.readable = escapeRegex(args.readable || config.readable); 
+
 if(args.watch || config.watch){
     /* Set chokidar to watch the src directory */
     const watcher = chokidar.watch(params.src, { ignoreInitial: true });

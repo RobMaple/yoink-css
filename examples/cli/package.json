@@ -1,8 +1,8 @@
 {
-    "scripts": {
-      "start": "yoink"
-    },
-    "dependencies": {
-      "yoink-css": "*"
-    }
+  "scripts": {
+    "start": "yoink --readable true"
+  },
+  "dependencies": {
+    "yoink-css": "file:../../"
   }
+}
